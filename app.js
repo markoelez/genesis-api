@@ -10,7 +10,7 @@ var index = require('./routes/index');
 var app = express();
 
 //mongoose setup
-var mongooseURL = '';
+var mongooseURL = process.env.mongoURL;
 
 //passport setup
 
