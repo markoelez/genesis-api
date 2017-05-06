@@ -77,14 +77,13 @@ function areCredentialsValid(username, password, callback){
 //login
 router.post('/login', function(req, res) {
 
-
     passport.authenticate('local', function (error, user, info){
         if (user === false) {
             // handle login error ...
         } else {
             // handle successful login ...
         }
-    });
+    })(req, res);
 });
 
 module.exports = router;
