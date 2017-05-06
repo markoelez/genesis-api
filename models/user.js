@@ -4,6 +4,7 @@
  var mongoose = require('mongoose');
  var passportLocalMongoose = require('passport-local-mongoose');
  var Schema = mongoose.Schema;
+ var bcrypt = require('bcrypt');
 
  var User = new Schema({
    username: String,
@@ -11,5 +12,14 @@
    studentID: {type: Number}
  });
 
+ User.methods.checkLogin = function (password, callback) {
+     bcrypt.compare(password, this.password, function (error, same) {
+         if (error){
+             callback(error);
+         }
+         callback(same);
+     })
+ };
+
    User.plugin(passportLocalMongoose);
-   module.exports = mongoose.model("User", User);
+   module.exports = mongoose.model('User', User);
