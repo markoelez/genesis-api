@@ -34,11 +34,14 @@ passport.use(new LocalStrategy(function (username, password, done) {
         user.checkLogin(password, function (error, userIsValid) {
             if (error) {
                 console.log('Error:');
-                return done(error);
+                return done(error, null);
             }
             if (userIsValid) {
-                console.log('Valid:');
-
+                console.log('User is valid:');
+                return done(null, user);
+            }else{
+                console.log('User is invalid:');
+                return done (null, null, 'Invalid credentials');
             }
         });
     });

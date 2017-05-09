@@ -75,15 +75,18 @@ function areCredentialsValid(username, password, callback){
 }
 
 //login
-router.post('/login', function(req, res) {
-
+router.post('/login', function(req, res, next) {
     passport.authenticate('local', function (error, user, info){
         if (user === false) {
             // handle login error ...
+            console.log('Failed login:');
+            next(new Error('AuthenticationError'), req, res);
         } else {
             // handle successful login ...
+            console.log('Successful login:');
+            res.redirect('./');
         }
-    })(req, res);
+    })(req, res, next);
 });
 
 module.exports = router;
